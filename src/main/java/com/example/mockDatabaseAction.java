@@ -3,8 +3,9 @@ package com.example;
 import java.util.*;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
+import io.vertx.sqlclient.SqlConnection;
 
-public class mockDatabaseAction {
+public class mockDatabaseAction implements EventService {
     int count = 0;
     HashMap<String, JsonObject> objectStore = new HashMap<String, JsonObject>();
 
@@ -15,8 +16,8 @@ public class mockDatabaseAction {
 
         JsonObject j1 = new JsonObject();
         j1.put("acc_id", 1);
-        j1.put("acc_num", "100");
-        j1.put("acc_name", "Darshan");
+        j1.put("acc_num", "102");
+        j1.put("org_name", "Darshan");
         j1.put("balance", 1000.0);
         j1.put("version", 1);
 
@@ -53,8 +54,38 @@ public class mockDatabaseAction {
      * @return
      *         Mock implementation of the select account function
      */
-    Future<JsonObject> selectAccount(String str) {
+    // Future<JsonObject> selectAccount(String str) {
 
+    // if (!str.isEmpty()) {
+    // if (objectStore.containsKey(str)) {
+    // return Future.succeededFuture(objectStore.get(str));
+    // } else {
+    // return Future.failedFuture("Because, Name Not Found. Please Enter Registered
+    // Name!!!...");
+    // }
+    // }
+    // return Future.succeededFuture(null);
+
+    // }
+
+    /**
+     * @param str
+     * @param balance
+     * @return
+     *         Mock implementation of the update account function
+     */
+    // Future<Boolean> updateAccount(String str, double balance) {
+    //     if (!str.isEmpty()) {
+    //         JsonObject accountRec = objectStore.get(str);
+    //         accountRec.put("balance", balance);
+    //         objectStore.put(str, accountRec);
+    //     }
+
+    //     return Future.succeededFuture(false);
+    // }
+
+    @Override
+    public Future<JsonObject> selectAccount(SqlConnection connection, String str) {
         if (!str.isEmpty()) {
             if (objectStore.containsKey(str)) {
                 return Future.succeededFuture(objectStore.get(str));
@@ -63,16 +94,10 @@ public class mockDatabaseAction {
             }
         }
         return Future.succeededFuture(null);
-
     }
 
-    /**
-     * @param str
-     * @param balance
-     * @return
-     *         Mock implementation of the update account function
-     */
-    Future<Boolean> updateAccount(String str, double balance) {
+    @Override
+    public Future<Boolean> updateAccount(SqlConnection connection, double balance, String str) {
         if (!str.isEmpty()) {
             JsonObject accountRec = objectStore.get(str);
             accountRec.put("balance", balance);

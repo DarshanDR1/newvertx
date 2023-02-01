@@ -1,5 +1,9 @@
 package com.example;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
@@ -13,22 +17,15 @@ public class compose_example extends AbstractVerticle {
 
     EventService eventService;
 
-    public EventService getEventService() {
-        return eventService;
-    }
-
-    /**
-     * @param eventService
-     *                     constructor with eventService interface object
-     */
-
+    @Inject
     public compose_example(EventService eventService) {
         this.eventService = eventService;
     }
 
-    public void setEventService(EventService eventService) {
-        this.eventService = eventService;
-    }
+    // @Inject
+    // public void setEventService(EventService eventService) {
+    // this.eventService = eventService;
+    // }
 
     /*
      * (non-Javadoc)

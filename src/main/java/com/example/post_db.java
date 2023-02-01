@@ -1,5 +1,8 @@
 package com.example;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.http.HttpServer;
@@ -8,7 +11,8 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 
 public class post_db extends AbstractVerticle {
-
+  Injector injector = Guice.createInjector(new AppModule());
+  compose_example cmp = injector.getInstance(compose_example.class);
   /*
    * (non-Javadoc)
    * 
@@ -33,6 +37,7 @@ public class post_db extends AbstractVerticle {
 
           System.out.println("Account details");
 
+          
           // String acc_name = reqBody.getString("acc_name");
           // System.out.println(acc_name);
 
