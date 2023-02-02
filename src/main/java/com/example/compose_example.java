@@ -44,11 +44,12 @@ public class compose_example extends AbstractVerticle {
                 .setPassword("admin");
         System.out.println("getting connection1");
         PoolOptions poolOptions = new PoolOptions().setMaxSize(5);
+        System.out.println("getting connection");
+
         vertx.eventBus().consumer("http_req", handler -> {
             PgPool pool = PgPool.pool(vertx, connectOptions, poolOptions);
             JsonObject acc = (JsonObject) handler.body();
 
-            System.out.println("getting connection");
 
             Future<JsonObject> f1 = asyncFetch1(pool, acc);
 

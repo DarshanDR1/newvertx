@@ -25,6 +25,7 @@ public class post_db extends AbstractVerticle {
     HttpServer server = vertx.createHttpServer(); // creating http server
     System.out.println("server start");
     Router router = Router.router(vertx);
+    System.out.println("router getting cal");
 
     router.get("/api/account/:acc_name")
         .handler(BodyHandler.create()).handler(context -> {
