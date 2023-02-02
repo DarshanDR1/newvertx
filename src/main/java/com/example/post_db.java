@@ -64,6 +64,7 @@ public class post_db extends AbstractVerticle {
         });
 
     server.requestHandler(router).listen(80); // server listening on port 8080
+    startPromise.complete();
 
   }
 

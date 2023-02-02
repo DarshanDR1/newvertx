@@ -35,12 +35,23 @@ public class sampleTest {
      * @throws Exception
      */
     @BeforeAll
-    public static void setUp(Vertx vertx) throws Exception {
+    public static void setUp(Vertx vertx, VertxTestContext testContext) throws Exception {
         Injector injector = Guice.createInjector(new AppModule1());
         compose_example cmp = injector.getInstance(compose_example.class);
-        vertx.deployVerticle(new post_db()); // Deploying server
-        vertx.deployVerticle(cmp); // deploying database verticle
-
+        // vertx.deployVerticle(new post_db()); // Deploying server
+        // deploying database verticle
+        vertx.deployVerticle(cmp,
+                ar -> {
+                    if (ar.succeeded()) {
+                        vertx.deployVerticle(new post_db(), ardb -> {
+                            if(ardb.succeeded()) testContext.completeNow();
+                            else testContext.failNow("HTTP VERTICLE FAILED");
+                        });
+                    } else {
+                        System.out.println("Failed");
+                        testContext.causeOfFailure();
+                    }
+                });
     }
 
     /**
@@ -57,8 +68,8 @@ public class sampleTest {
          * 
          */
         // doAnswer(invocation -> {
-        //     String name = invocation.getArgument(1);
-        //     return h1.selectAccount(name); // calling mock implementation class
+        // String name = invocation.getArgument(1);
+        // return h1.selectAccount(name); // calling mock implementation class
         // }).when(asPy).selectAccount(any(), any());
 
         /**
@@ -66,13 +77,13 @@ public class sampleTest {
          * 
          */
         // doAnswer(invocation -> {
-        //     System.out.println("Updated");
-        //     double c = invocation.getArgument(1);
-        //     System.out.println("New balance = " + c);
+        // System.out.println("Updated");
+        // double c = invocation.getArgument(1);
+        // System.out.println("New balance = " + c);
 
-        //     String name = invocation.getArgument(2);
-        //     System.out.println(name);
-        //     return h1.updateAccount(name, c); // calling mock implementation class
+        // String name = invocation.getArgument(2);
+        // System.out.println(name);
+        // return h1.updateAccount(name, c); // calling mock implementation class
         // }).when(asPy).updateAccount(any(), anyDouble(), any());
 
         /**
@@ -89,7 +100,7 @@ public class sampleTest {
                     assertThat(resp.statusCode()).isEqualTo(200); // checking response by status code
 
                     assertEquals(680.0, (resp.bodyAsJsonObject()).getMap().get("balance")); // comparing expected and
-                                                                                             // actual values
+                                                                                            // actual values
                 } else {
                     assertThat(resp.statusCode()).isEqualTo(404);
                 }
@@ -164,10 +175,10 @@ public class sampleTest {
      * @throws Exception
      */
     @AfterAll
-    public static void tearDown() throws Exception {
-        Vertx vertx = Vertx.vertx();
-        VertxTestContext context = new VertxTestContext();
-        context.succeeding(b -> vertx.close());
+    public static void tearDown(Vertx vertx) throws Exception {
+
+      
+        vertx.close();
 
         System.out.println("vertx closed..... ");
     }
