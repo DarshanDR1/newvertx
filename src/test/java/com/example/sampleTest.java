@@ -24,7 +24,7 @@ import io.vertx.junit5.VertxExtension;
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(VertxExtension.class)
-public class UnitTesting {
+public class sampleTest {
 
     mockDatabaseAction h1 = new mockDatabaseAction(); // Object to access mockDatabaseAction class
 
