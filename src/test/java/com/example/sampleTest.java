@@ -109,6 +109,9 @@ public class sampleTest {
             });
 
         });
+        c.onFailure(f->{
+            testContext.failNow(f.getMessage());
+        });
 
     }
 
