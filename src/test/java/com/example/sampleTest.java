@@ -91,12 +91,14 @@ public class sampleTest {
          * 
          */
 
-        Future<HttpResponse<Buffer>> c = client.get(8080, "localhost", "/api/account/Ashish").send();
+        Future<HttpResponse<Buffer>> c = client.get(8080, "127.0.0.1", "/api/account/Ashish").send();
 System.out.println("in api");
         c.onSuccess(resp -> {
-
+System.out.println(   resp.bodyAsBuffer().toString() );
             testContext.verify(() -> {
                 if (resp.statusCode() == 200) {
+               
+
                     assertThat(resp.statusCode()).isEqualTo(200); // checking response by status code
 
                     assertEquals(680.0, (resp.bodyAsJsonObject()).getMap().get("balance")); // comparing expected and

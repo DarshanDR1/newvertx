@@ -64,14 +64,14 @@
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-suite-engine</artifactId>
-      <version>1.9.1</version>
+      <version>1.9.2</version>
       <scope>test</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-engine</artifactId>
-      <version>1.9.1</version>
+      <version>1.9.2</version>
       <scope>test</scope>
     </dependency>
 
@@ -128,7 +128,7 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>5.9.1</version>
+      <version>5.9.2</version>
       <scope>test</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
@@ -142,7 +142,7 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.9.1</version>
+      <version>5.9.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -203,4 +203,6 @@
 
     </pluginManagement>
   </build>
+
+
 </project>
